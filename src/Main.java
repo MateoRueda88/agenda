@@ -1,3 +1,5 @@
+import javax.print.DocFlavor;
+import java.math.BigInteger;
 import java.util.Scanner;
 
 public class Main {
@@ -27,8 +29,15 @@ public class Main {
                     String nombre = scanner.nextLine();
                     System.out.print("Ingrese el teléfono del contacto: ");
                     String telefono = scanner.nextLine();
-                    Contacto nuevoContacto = new Contacto(nombre, telefono); // Se crea nuevo contacto
-                    agenda.añadirContacto(nuevoContacto); //Agregar nuevo contacto a nuestra Agenda
+                    try{
+                        //Se utiliza BigInteger porque el valor numero ingresado es muy grande
+                        BigInteger phone = new BigInteger(telefono);
+                        Contacto nuevoContacto = new Contacto(nombre, telefono);
+                        agenda.añadirContacto(nuevoContacto);
+                    }catch(NumberFormatException ex){
+                        //verificar que el valor ingresado sea numerico
+                        System.out.println("El telefono debe ser de tipo numerico");
+                    }
                     break;
                 case 2:
                     agenda.listarContactos(); //imprimimos la lista de contactos
